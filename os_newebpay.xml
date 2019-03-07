@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<install version="1.0" type="plugin" group="payment">
+	<name>os_newebpay</name>
+	<title>藍新金流</title>
+	<author>Shingo</author>
+	<creationDate>05-03-2019</creationDate>
+	<copyright>Copyright 2010-2019 Tellustek</copyright>
+	<license>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU/GPL version 2</license>
+	<authorEmail>shingo@tellustek.com</authorEmail>
+	<authorUrl>www.tellustek.com</authorUrl>
+	<version>1.5</version>
+	<description>藍新金流 Plugin For Joom Donation Extension</description>
+	<config>
+		<fields name="params">
+			<fieldset name="basic" addfieldpath="/administrator/components/com_jdonation/elements">
+				<field name="newebpay_mode" type="list" label="Newebpay Mode" description="Set to Test Mode Or Live Mode" default="0">
+					<option value="0">Test Mode</option>
+					<option value="1">Live Mode</option>
+				</field>
+				<field name="newebpay_merchantid" type="text" size="40" label="商店代號"
+					   description="請輸入藍新金流商店代號" default=""></field>
+				<field name="newebpay_hashkey" type="text" size="40" label="Hash Key"
+					   description="請輸入藍新金流HashKey" default=""></field>
+				<field name="newebpay_hashiv" type="text" size="40" label="Hash IV"
+					   description="請輸入藍新金流HashIV" default=""></field>
+				<field name="newebpay_period_month_point" type="number" max="31" min="1" label="每月付款日期"
+					   description="每月付款日期, 如該月沒有該日期則以該月最後一天爲收款日" default="10"></field>
+			</fieldset>
+		</fields>
+	</config>
+	<files>
+		<filename>os_newebpay.php</filename>
+	</files>
+	<installsql/>
+	<installfile/>
+</install>
