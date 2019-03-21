@@ -219,6 +219,25 @@ class os_newebpay extends OSFPayment
 				// 金額不符
 				return false;
 			}
+
+			if ($result['RespondCode'] !== '00') {
+				// 授權失敗
+				// 第一次授權就失敗, 不理他
+				// 第二期開始後授權失敗, 新增付款失敗記錄
+				if ($row->payment_made > 0)
+				{
+					$row                = clone $row;
+					$row->id            = 0;
+					$row->donation_type = 'I';
+					$row->created_date  = gmdate('Y-m-d H:i:s');
+					$row->comment = $this->errorMessage;
+					$row->published = 0;
+					$row->store();
+				}
+				$row->comment = $this->errorMessage;
+				$row->store();
+				return false;
+			}
 			
 			if (array_key_exists('AuthTimes', $result)) {
 				// 第一次授權, 可能爲10元驗證或是第一期款項
@@ -371,16 +390,17 @@ class os_newebpay extends OSFPayment
 		
 		echo '<pre>' . var_export($period, true) . '</pre>';
 		if ($period['Status'] !== 'SUCCESS') {
-			error_log(var_export($this->returnPeriod, true));
 			error_log('Period->status not match');
-			return false;
+			error_log(var_export($period, true));
+			$this->errorMessage = $period['Message'];
+			// return false; // 爲了記錄付款失敗, 	不回傳false
 		}
 		$result = $period['Result'];
 
 		if ($result['MerchantID'] !== $this->merchantID) {
 			error_log('Period->Result->merchantID not match');
 			error_log('Period->Result->MerchantID: ' . $result['MerchantID'] . ', it should be: ' . $this->merchantID, true);
-			error_log(var_export($result, true));
+			error_log(var_export($period, true));
 			return false;
 		}
 
