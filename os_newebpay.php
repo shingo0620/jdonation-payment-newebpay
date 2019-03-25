@@ -46,7 +46,8 @@ class os_newebpay extends OSFPayment
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
 		$notifyUrl = $siteUrl . 'index.php?option=com_jdonation&task=payment_confirm&payment_method=os_newebpay';
-		$returnUrl = JUri::getInstance()->toString(array('scheme', 'user', 'pass', 'host')) . JRoute::_(DonationHelperRoute::getDonationCompleteRoute($row->id, $row->campaign_id, $Itemid), false);
+		// $returnUrl = JUri::getInstance()->toString(array('scheme', 'user', 'pass', 'host')) . JRoute::_(DonationHelperRoute::getDonationCompleteRoute($row->id, $row->campaign_id, $Itemid), false);
+		$returnUrl = $siteUrl . 'index.php?option=com_newebpayresult&task=verifyPayment';
 		
 		$tradeInfoArray = [
 			'MerchantID' => $this->merchantID, //商店代號
@@ -106,7 +107,8 @@ class os_newebpay extends OSFPayment
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
 		$notifyUrl = $siteUrl . 'index.php?option=com_jdonation&task=recurring_donation_confirm&payment_method=os_newebpay';
-		$returnUrl = JUri::getInstance()->toString(array('scheme', 'user', 'pass', 'host')) . JRoute::_(DonationHelperRoute::getDonationCompleteRoute($row->id, $row->campaign_id, $Itemid), false);
+		// $returnUrl = JUri::getInstance()->toString(array('scheme', 'user', 'pass', 'host')) . JRoute::_(DonationHelperRoute::getDonationCompleteRoute($row->id, $row->campaign_id, $Itemid), false);
+		$returnUrl = $siteUrl . 'index.php?option=com_newebpayresult&task=verifyRecurringPayment';
 
 		if ($row->r_times > 0 && $row->r_times < 100){
 			$periodTimes = $row->r_times;
