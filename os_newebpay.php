@@ -41,7 +41,7 @@ class os_newebpay extends OSFPayment
 		$app    = JFactory::getApplication();
 		$Itemid = $app->input->getInt('Itemid');
 		$config = DonationHelper::getConfig();
-		DonationHelper::sendEmails($row, $config);
+		// DonationHelper::sendEmails($row, $config);
 		
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
@@ -102,7 +102,7 @@ class os_newebpay extends OSFPayment
 		$app    = JFactory::getApplication();
 		$Itemid = $app->input->getInt('Itemid');
 		$config = DonationHelper::getConfig();
-		DonationHelper::sendEmails($row, $config);
+		// DonationHelper::sendEmails($row, $config);
 		
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
@@ -151,8 +151,8 @@ class os_newebpay extends OSFPayment
 		}
 
 		$periodStartType = 1;
-		if ($periodType === 'M' && date('d') === $periodPoint) {
-			// 授權日期正好是扣款日, 則馬上扣款第一期
+		if (($periodType === 'M' && date('d') === $periodPoint) || $periodType === 'Y') {
+			// 授權日期正好是扣款日或如果是定期定額年費, 則馬上扣款第一期
 			$periodStartType = 2;
 		}
 
