@@ -41,7 +41,7 @@ class os_newebpay extends OSFPayment
 		$app    = JFactory::getApplication();
 		$Itemid = $app->input->getInt('Itemid');
 		$config = DonationHelper::getConfig();
-		DonationHelper::sendEmails($row, $config);
+		// DonationHelper::sendEmails($row, $config);
 		
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
@@ -102,7 +102,7 @@ class os_newebpay extends OSFPayment
 		$app    = JFactory::getApplication();
 		$Itemid = $app->input->getInt('Itemid');
 		$config = DonationHelper::getConfig();
-		DonationHelper::sendEmails($row, $config);
+		// DonationHelper::sendEmails($row, $config);
 		
 		$siteUrl = JUri::base();
 		$cancelUrl = $siteUrl . 'index.php?option=com_jdonation&view=cancel' . ($row->campaign_id > 0 ? '&campaign_id=' . $row->campaign_id : '') . '&Itemid=' . $Itemid;
