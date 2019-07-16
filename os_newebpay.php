@@ -118,7 +118,8 @@ class os_newebpay extends OSFPayment
 
 		switch ($row->r_frequency){
 			case 'd':
-				$periodPoint = '1';
+				// 最少要兩天一次，不能間隔1天
+				$periodPoint = '2'; 
 				$periodType = 'D';
 				throw new Exception("目前不支援每日付款");
 				break;
